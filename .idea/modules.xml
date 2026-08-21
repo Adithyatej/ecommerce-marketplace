@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/ecommerce-marketplace.iml" filepath="$PROJECT_DIR$/.idea/ecommerce-marketplace.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/marketplace.main.iml" filepath="$PROJECT_DIR$/.idea/modules/marketplace.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/marketplace.test.iml" filepath="$PROJECT_DIR$/.idea/modules/marketplace.test.iml" />
+    </modules>
+  </component>
+</project>

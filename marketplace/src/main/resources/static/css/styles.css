@@ -1,0 +1,108 @@
+:root {
+  font-family: Arial, sans-serif;
+  color: #1f2937;
+  background: #f3f4f6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.container {
+  width: min(100% - 32px, 520px);
+  min-height: 100vh;
+  margin: auto;
+  display: grid;
+  place-items: center;
+}
+
+.card {
+  width: 100%;
+  padding: 32px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 10%);
+}
+
+h1 {
+  margin-top: 0;
+}
+
+.option-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+form {
+  display: grid;
+  gap: 16px;
+}
+
+label {
+  display: grid;
+  gap: 7px;
+  font-weight: 600;
+}
+
+input {
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font: inherit;
+}
+
+input:focus {
+  outline: 2px solid #2563eb;
+  border-color: transparent;
+}
+
+.button {
+  display: inline-block;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+}
+
+.button:hover {
+  background: #1d4ed8;
+}
+
+.button-secondary {
+  background: #475569;
+}
+
+.button-secondary:hover {
+  background: #334155;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.message {
+  min-height: 24px;
+  margin: 0;
+}
+
+.message.success {
+  color: #15803d;
+}
+
+.message.error {
+  color: #b91c1c;
+}

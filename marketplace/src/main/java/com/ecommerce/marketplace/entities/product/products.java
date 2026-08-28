@@ -27,17 +27,14 @@ public class products {
     @Column(name = "brand", nullable=false)
     private String brand;
 
-
     @Setter
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
-    private productCategories category;
+    private productCategories productCategories;
 
     @Setter
     @OneToMany(mappedBy = "product",orphanRemoval = true)
     private List<productListings> productListingsList;
-
-
 
 
 }

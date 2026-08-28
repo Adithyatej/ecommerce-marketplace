@@ -13,4 +13,14 @@ public class globalExceptionHandler {
     public ResponseEntity<String> handleUserAlreadyExistsException(userAlreadyExistsException ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
+
+    @ExceptionHandler(IdNotFoundException.class)
+    public ResponseEntity<String> handleIdNotFoundException(IdNotFoundException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
+    @ExceptionHandler(categoryNotFoundException.class)
+    public ResponseEntity<String> handleCategoryNotFoundException(categoryNotFoundException ex) {
+        return ResponseEntity.status(404).body(ex.getMessage());
+    }
 }

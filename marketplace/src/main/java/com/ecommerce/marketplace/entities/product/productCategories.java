@@ -20,19 +20,16 @@ public class productCategories {
     private String categoryName;
 
     @Setter
-    @Column(name = "category_description", nullable = false)
-    private String categoryDescription;
+    @ManyToOne
+    @JoinColumn(name = "parent_category_id",referencedColumnName = "id")
+    private productCategories parentCategoryId;
+
+
+    @OneToMany(mappedBy = "parentCategoryId",cascade = CascadeType.ALL)
+    private List<productCategories> categoriesList;
 
     @Setter
-    @Column(name = "parent_category_id")
-    private Long parentCategoryId;
-
-    @Setter
-    @Column(name = "tags", nullable = false)
-    private List<String> tags;
-
-    @Setter
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "productCategories", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<products> products;
 
 

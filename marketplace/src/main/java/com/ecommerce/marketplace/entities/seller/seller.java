@@ -20,12 +20,12 @@ public class seller extends user {
 
 
     @Setter
-    @Column(name = "store_name",nullable = false)
-    private String storeName;
+    @Column(name = "seller_name",nullable = false)
+    private String sellerName;
 
     @Setter
     @Column(name="store_description")
-    private String storeDescription;
+    private String storeName;
 
     @Setter
     @Column(name="rating")
@@ -38,7 +38,6 @@ public class seller extends user {
     @Setter
     @OneToMany(mappedBy = "seller")
     private List<productListings> sellerproductListingsList;
-
 
 
 }

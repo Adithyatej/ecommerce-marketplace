@@ -3,6 +3,7 @@ package com.ecommerce.marketplace.entities.product;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class productCategories {
     private String categoryName;
 
     @Setter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_category_id",referencedColumnName = "id")
     private productCategories parentCategoryId;
 

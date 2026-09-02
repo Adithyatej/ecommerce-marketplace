@@ -1,76 +1,114 @@
 package com.ecommerce.marketplace.service.product;
 
-
+import com.ecommerce.marketplace.Mapping.productMapper;
 import com.ecommerce.marketplace.Repository.product.productCategoriesRepo;
+import com.ecommerce.marketplace.Repository.product.productRepo;
 import com.ecommerce.marketplace.dto.product.categoryDTO;
+import com.ecommerce.marketplace.dto.product.productDTO;
 import com.ecommerce.marketplace.entities.product.productCategories;
+import com.ecommerce.marketplace.entities.product.products;
 import com.ecommerce.marketplace.exceptions.IdNotFoundException;
 import com.ecommerce.marketplace.exceptions.categoryNotFoundException;
+import com.ecommerce.marketplace.projections.products.productResponse;
 import jakarta.transaction.Transactional;
-import jdk.jfr.Category;
 import org.jspecify.annotations.Nullable;
+import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 @Service
 public class productServices {
 
-    private final productCategoriesRepo productCategoriesRepo;
 
-    public productServices(productCategoriesRepo productCategoriesRepo){
-        this.productCategoriesRepo=productCategoriesRepo;
-    }
+        private final productCategoriesRepo productCategoriesRepo;
+        private final productRepo productRepo;
 
-    public void add(categoryDTO request) {
+        private productMapper productMapper = Mappers.getMapper(productMapper.class);
 
-        productCategories info = productCategoriesRepo.findByCategoryName(request.getParentCategoryName()).orElseThrow(
-                ()-> new IdNotFoundException("Category Not Found")
-        );
-
-            productCategories productCategories= new productCategories();
-            productCategories.setCategoryName(request.getCategoryName());
-            productCategories.setParentCategoryId(info);
-            productCategoriesRepo.save(productCategories);
-
-
-    }
-
-    public List<categoryDTO> getCategoriesAndTheirParentCategories() {
-
-       List<categoryDTO> category = productCategoriesRepo.findCategoriesAndSubCategories();
-
-       return  (category.isEmpty())?List.of(): category.stream().toList();
-    }
-
-
-    public List<String> getCategories() {
-
-        List<String> category = productCategoriesRepo.findAllCategories();
-
-         if (category==null || category.isEmpty()) {
-             throw new categoryNotFoundException("Categories not found");
-         }
-
-         else {
-             return category;
-         }
-    }
-
-    @Transactional(rollbackOn = Exception.class)
-    public Long deleteCategories(String name) {
-
-        name = name.replace("-"," ");
-
-        Long rows = productCategoriesRepo.deleteByCategoryName(name);
-
-        if (rows<1) {
-            throw new categoryNotFoundException("Category Not Found");
+        public productServices(productCategoriesRepo productCategoriesRepo, productRepo productRepo){
+            this.productRepo=productRepo;
+            this.productCategoriesRepo=productCategoriesRepo;
         }
 
-        return rows;
 
+
+        public String addProducts(productDTO product) {
+
+            productCategories info = productCategoriesRepo.findByCategoryName(product.getProductCategory()).orElseThrow(
+                    ()-> new IdNotFoundException("Category Not Found")
+            );
+
+            products productContent = productRepo.save(productMapper.toEntity(product,info));
+
+            return productContent.getProductName();
+
+        }
+
+        public List<productResponse> getProducts() {
+
+            List<productResponse> products = productRepo.findProductsWithCategory();
+            if (products==null || products.isEmpty()) {
+                throw new categoryNotFoundException("Categories not found");
+            }
+
+            else {
+                return products;
+            }
+        }
+
+        public productDTO getProductsByName(String name) {
+
+            name = name.replace("-"," ").toLowerCase();
+
+            products product = productRepo.findByProductName(name);
+            if (product==null) {
+                throw new IdNotFoundException("Product Not Found");
+            }
+
+            else {
+                return productMapper.toDTO(product);
+            }
+
+        }
+
+
+        @Transactional
+    public @Nullable String updateProduct(String name, productDTO product) {
+
+            name = name.replace("-"," ").toLowerCase();
+
+            products existingProduct = productRepo.findByProductName(name);
+
+            if (existingProduct==null) {
+                throw new IdNotFoundException("Product Not Found");
+            }
+            else {
+                if (product.getProductName() != null) {
+                    existingProduct.setProductName(product.getProductName());
+                }
+                if (product.getProductDescription() != null) {
+                    existingProduct.setProductDescription(product.getProductDescription());
+                }
+                if (product.getBrand() != null) {
+                    existingProduct.setBrand(product.getBrand());
+                }
+                if (product.getProductCategory() != null) {
+                    productCategories productCategory = productCategoriesRepo.findByCategoryName(product.getProductName()).orElseThrow(() -> new IdNotFoundException("Category Not Found"));
+                    existingProduct.setProductCategories(productCategory);
+                }
+
+                products updatedProduct = productRepo.save(existingProduct);
+                return updatedProduct.getProductName();
+            }
+        }
+
+
+    @Transactional
+    public Object deleteProduct(String name) {
+            name = name.replace("-"," ").toLowerCase();
+
+            products product = productRepo.deleteByProductName(name).orElseThrow( ()-> new IdNotFoundException("Product Not Found"));
+
+            return product.getProductName();
     }
 }

@@ -26,6 +26,7 @@ dependencies {
     implementation("org.mapstruct.extensions.spring:mapstruct-spring-annotations:0.1.2")
     // MapStruct Processor via kapt (Kotlin Annotation Processing Tool)
     implementation("org.mapstruct:mapstruct-processor:1.6.3")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
 	compileOnly("org.projectlombok:lombok")
 	runtimeOnly("com.mysql:mysql-connector-j")
 	annotationProcessor("org.projectlombok:lombok")

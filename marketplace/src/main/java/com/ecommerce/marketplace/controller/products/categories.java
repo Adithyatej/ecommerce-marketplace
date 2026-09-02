@@ -1,19 +1,17 @@
 package com.ecommerce.marketplace.controller.products;
 
 import com.ecommerce.marketplace.dto.product.categoryDTO;
-import com.ecommerce.marketplace.service.product.productServices;
+import com.ecommerce.marketplace.service.product.productCategoriesServices;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/category-api")
 public class categories {
 
-    private final productServices productServices;
+    private final productCategoriesServices productServices;
 
-    public categories(productServices productServices) {
+    public categories(productCategoriesServices productServices) {
         this.productServices=productServices;
     }
 
@@ -22,7 +20,7 @@ public class categories {
     @PostMapping("/category")
     public ResponseEntity<?> addCategories(@RequestBody categoryDTO request) {
 
-        productServices.add(request);
+        productServices.addCategory(request);
 
 
         return ResponseEntity.ok(request.getCategoryName()+ "is added");

@@ -1,8 +1,8 @@
 package com.ecommerce.marketplace.controller.Customer.Authentication;
 
 
-import com.ecommerce.marketplace.dto.customerRequestDTO;
-import com.ecommerce.marketplace.service.customer.authservices;
+import com.ecommerce.marketplace.dto.customer.customerRequestDTO;
+import com.ecommerce.marketplace.service.customer.customerAuthServices;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/customer-auth")
 public class customerAuthController {
 
-    private final authservices customerAuthService;
+    private final customerAuthServices customerAuthService;
 
-    public customerAuthController(authservices customerAuthService) {
+    public customerAuthController(customerAuthServices customerAuthService) {
         this.customerAuthService = customerAuthService;
     }
 

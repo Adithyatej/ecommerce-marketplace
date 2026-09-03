@@ -1,6 +1,6 @@
 package com.ecommerce.marketplace.Mapping;
 
-import com.ecommerce.marketplace.dto.customerRequestDTO;
+import com.ecommerce.marketplace.dto.customer.customerRequestDTO;
 import com.ecommerce.marketplace.entities.customer.customer;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

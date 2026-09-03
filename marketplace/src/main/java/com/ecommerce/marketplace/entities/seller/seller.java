@@ -5,8 +5,11 @@ import com.ecommerce.marketplace.entities.user;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.List;
+
+
 
 @Getter
 @Entity
@@ -20,15 +23,16 @@ public class seller extends user {
 
 
     @Setter
-    @Column(name = "seller_name",nullable = false)
-    private String sellerName;
-
-    @Setter
-    @Column(name="store_description")
+    @Column(name = "store_name",nullable = false)
     private String storeName;
 
     @Setter
+    @Column(name="store_description")
+    private String storeDescription;
+
+    @Setter
     @Column(name="rating")
+    @ColumnDefault("0.0")
     private double rating;
 
     @Setter

@@ -20,6 +20,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/category-api/category/**").permitAll()
                         .requestMatchers("/category-api/category", "/category-api/categories/**").permitAll()
                         .requestMatchers("/products-api/**").permitAll()
+                        .requestMatchers("/api/seller-auth/**").permitAll()
+                        .requestMatchers("/api/customer-auth/**").permitAll()
                         .anyRequest().authenticated()
                 );
 

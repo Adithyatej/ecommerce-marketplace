@@ -1,4 +1,4 @@
-package com.ecommerce.marketplace.dto;
+package com.ecommerce.marketplace.dto.customer;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -19,6 +19,8 @@ public class customerRequestDTO {
     @Setter
     @Getter
     @NotBlank(message = "Password is mandatory")
+
+
     private String password;
     @Setter
     @Getter

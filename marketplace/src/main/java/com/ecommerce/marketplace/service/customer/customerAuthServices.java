@@ -3,7 +3,7 @@ package com.ecommerce.marketplace.service.customer;
 
 import com.ecommerce.marketplace.Mapping.customerMapper;
 import com.ecommerce.marketplace.Repository.customerRepo;
-import com.ecommerce.marketplace.dto.customerRequestDTO;
+import com.ecommerce.marketplace.dto.customer.customerRequestDTO;
 import com.ecommerce.marketplace.entities.customer.customer;
 import com.ecommerce.marketplace.exceptions.userAlreadyExistsException;
 import org.mapstruct.factory.Mappers;
@@ -16,14 +16,14 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class authservices implements UserDetailsService {
+public class customerAuthServices implements UserDetailsService {
 
     private final customerRepo customerRepo;
     private final BCryptPasswordEncoder passwordEncoder;
 
     private customerMapper customerMapper = Mappers.getMapper(customerMapper.class);
 
-    public authservices(customerRepo customerRepo,BCryptPasswordEncoder passwordEncoder) {
+    public customerAuthServices(customerRepo customerRepo, BCryptPasswordEncoder passwordEncoder) {
         this.customerRepo = customerRepo;
         this.passwordEncoder = passwordEncoder;
     }
@@ -46,7 +46,6 @@ public class authservices implements UserDetailsService {
 
         System.out.println("after encoding password");
         System.out.println("before saving customer");
-       // Optional.ofNullable(customerMapper.dtoToEntity(customerRequestDto)).ifPresent(customerRepo::save);
         customer cus = customerMapper.dtoToEntity(customerRequestDto);
         System.out.println("username: " +cus.getUsername()+" email: "+cus.getEmail()+" phone: "+cus.getPhoneNumber());
         customerRepo.save(cus);

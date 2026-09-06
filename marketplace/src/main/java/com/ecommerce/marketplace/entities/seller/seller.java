@@ -19,7 +19,7 @@ public class seller extends user {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
 
     @Setter

@@ -29,6 +29,7 @@ public class sellerAuthController {
             return ResponseEntity.ok(registeredUser + " registered successfully");
         }
 
+
     }
 
 

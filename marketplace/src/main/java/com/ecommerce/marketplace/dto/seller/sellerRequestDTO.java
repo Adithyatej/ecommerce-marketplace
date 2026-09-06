@@ -33,7 +33,7 @@ public class sellerRequestDTO {
     @NotBlank(message = "store name is mandatory")
     private String storeName;
 
-    @NotBlank(message = "store description is mandatory")
+
     private String storeDescription;
 
 

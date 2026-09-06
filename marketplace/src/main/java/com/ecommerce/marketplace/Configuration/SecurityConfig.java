@@ -22,6 +22,7 @@ public class SecurityConfig {
                         .requestMatchers("/products-api/**").permitAll()
                         .requestMatchers("/api/seller-auth/**").permitAll()
                         .requestMatchers("/api/customer-auth/**").permitAll()
+                        .requestMatchers("/api/productsList/**").permitAll()
                         .anyRequest().authenticated()
                 );
 

@@ -10,17 +10,27 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class globalExceptionHandler {
 
     @ExceptionHandler(userAlreadyExistsException.class)
-    public ResponseEntity<String> handleUserAlreadyExistsException(userAlreadyExistsException ex) {
+    public ResponseEntity<?> handleUserAlreadyExistsException(userAlreadyExistsException ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
     @ExceptionHandler(IdNotFoundException.class)
-    public ResponseEntity<String> handleIdNotFoundException(IdNotFoundException ex) {
+    public ResponseEntity<?> handleIdNotFoundException(IdNotFoundException ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
     @ExceptionHandler(categoryNotFoundException.class)
-    public ResponseEntity<String> handleCategoryNotFoundException(categoryNotFoundException ex) {
+    public ResponseEntity<?> handleCategoryNotFoundException(categoryNotFoundException ex) {
+        return ResponseEntity.status(404).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(productAlreadyExistsException.class)
+    public ResponseEntity<?> handleProductAlreadyExists(productAlreadyExistsException ex) {
+        return ResponseEntity.status(400).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(productNotFoundException.class)
+    public ResponseEntity<?> handleProductNotFound(productNotFoundException ex) {
         return ResponseEntity.status(404).body(ex.getMessage());
     }
 }

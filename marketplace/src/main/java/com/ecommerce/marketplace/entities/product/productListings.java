@@ -16,12 +16,12 @@ public class productListings {
     private Long Id;
 
     @Setter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id",referencedColumnName = "id")
     private products product;
 
     @Setter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id",referencedColumnName ="id")
     private seller seller;
 

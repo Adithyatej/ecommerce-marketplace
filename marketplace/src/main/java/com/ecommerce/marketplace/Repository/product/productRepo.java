@@ -2,8 +2,10 @@ package com.ecommerce.marketplace.Repository.product;
 
 import com.ecommerce.marketplace.entities.product.products;
 import com.ecommerce.marketplace.projections.products.productResponse;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.swing.text.html.Option;
@@ -20,4 +22,7 @@ public interface productRepo extends JpaRepository<products,Long> {
 
     @Query(value = "DELETE FROM PRODUCTS P WHERE P.PRODUCT_NAME =?1",nativeQuery = true)
     Optional<products> deleteByProductName(String name);
+
+    @Query(value = "SELECT * from PRODUCTS P WHERE P.PRODUCT_NAME=:productname AND P.BRAND=:brand",nativeQuery = true)
+    products findProductWithProductNameAndBrand(@Param("productname") String productName, @Param("brand") String brand);
 }

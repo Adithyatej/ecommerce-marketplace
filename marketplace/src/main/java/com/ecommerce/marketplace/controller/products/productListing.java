@@ -79,4 +79,10 @@ public class productListing {
         return ResponseEntity.ok( "Listing associated with seller is deactivated!!! ");
     }
 
+    @GetMapping("/listings")
+    public ResponseEntity<?> viewListings() {
+
+        return ResponseEntity.ok(productService.viewAllProducts());
+    }
+
 }

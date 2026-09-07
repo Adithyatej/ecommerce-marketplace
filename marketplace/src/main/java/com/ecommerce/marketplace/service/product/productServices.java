@@ -233,4 +233,16 @@ public class productServices {
 
 
     }
+
+    public List<productListingResponse> viewAllProducts() {
+
+            List<productListingResponse> products = productListingRepo.findAllProductListing();
+
+            if (products==null || products.isEmpty()) {
+                throw new productNotFoundException("productListings is Empty");
+            }
+            else {
+                return products;
+            }
+    }
 }

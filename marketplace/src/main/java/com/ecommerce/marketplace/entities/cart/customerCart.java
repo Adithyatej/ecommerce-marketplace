@@ -22,7 +22,7 @@ public class customerCart {
     private customer customer;
 
     @Setter
-    @OneToMany(mappedBy = "cartItems",orphanRemoval = true)
-    private List<cartItems> userCartList;
+    @OneToMany(mappedBy = "cart",orphanRemoval = true)
+    private List<cartItems> items;
 
 }

@@ -46,6 +46,7 @@ public interface productListingRepo extends JpaRepository<productListings,Long> 
     @Query(value = "SELECT PL.PRICE AS price,PL.STOCK_QUANTITY as stockQuantity, P.PRODUCT_NAME AS productName,P.BRAND AS brand, S.USERNAME AS sellerName FROM PRODUCT_LISTINGS PL JOIN PRODUCTS P ON PL.PRODUCT_ID= P.ID JOIN SELLERS S ON PL.SELLER_ID = S.ID",nativeQuery = true)
     List<productListingResponse> findAllProductListing();
 
-
+    @Query(value = "SELECT * FROM PRODUCT_LISTINGS WHERE ID=?1 AND STATUS NOT IN ('OUT OF STOCK','DEACTIVATED')",nativeQuery = true)
+    Optional<productListings> findByIdAndStatus(Long listingId);
 }
 

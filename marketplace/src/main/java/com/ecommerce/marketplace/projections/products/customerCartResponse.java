@@ -2,12 +2,11 @@ package com.ecommerce.marketplace.projections.products;
 
 import java.math.BigDecimal;
 
-public interface productListingResponse {
+public interface customerCartResponse {
 
     BigDecimal getPrice();
-    Integer getStockQuantity();
+    Integer getQuantity();
     String getProductName();
     String getBrand();
-    String getStoreName();
-
+    String getSellerName();
 }

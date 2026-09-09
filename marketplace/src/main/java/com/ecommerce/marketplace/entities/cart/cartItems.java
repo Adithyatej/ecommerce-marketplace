@@ -19,7 +19,7 @@ public class cartItems {
     @Setter
     @ManyToOne
     @JoinColumn(name = "cart_id",referencedColumnName = "id")
-    private customerCart cartItems;
+    private customerCart cart;
 
 
     @Setter

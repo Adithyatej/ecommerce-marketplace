@@ -1,7 +1,6 @@
 package com.ecommerce.marketplace.service.cart;
 
 import com.ecommerce.marketplace.Mapping.cartItemMapper;
-import com.ecommerce.marketplace.Mapping.productMapper;
 import com.ecommerce.marketplace.Repository.cart.cartItemsRepo;
 import com.ecommerce.marketplace.Repository.cart.customerCartRepo;
 import com.ecommerce.marketplace.Repository.customerRepo;
@@ -12,15 +11,15 @@ import com.ecommerce.marketplace.entities.cart.customerCart;
 import com.ecommerce.marketplace.entities.customer.customer;
 import com.ecommerce.marketplace.entities.product.productListings;
 import com.ecommerce.marketplace.exceptions.IdNotFoundException;
+import com.ecommerce.marketplace.exceptions.cartAlreadyExistsException;
+import com.ecommerce.marketplace.exceptions.cartNotFoundException;
 import com.ecommerce.marketplace.exceptions.productNotFoundException;
 import com.ecommerce.marketplace.projections.products.customerCartResponse;
 import jakarta.transaction.Transactional;
-import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class cartServices {
@@ -31,7 +30,7 @@ public class cartServices {
     private final productListingRepo productListingRepo;
     private final cartItemsRepo cartItemsRepo;
 
-    private cartItemMapper cartMapper = Mappers.getMapper(cartItemMapper.class);
+    private final cartItemMapper cartMapper = Mappers.getMapper(cartItemMapper.class);
 
     public cartServices(customerRepo customerRepo, customerCartRepo customerCartRepo, productListingRepo productListingRepo,cartItemsRepo cartItemsRepo) {
         this.customerRepo=customerRepo;
@@ -101,18 +100,25 @@ public class cartServices {
     }
 
     @Transactional
-    public void decreaseQuantity(Long id,Integer quantity) {
+    public String decreaseQuantity(Long id,Integer quantity) {
         cartItems updated  = cartItemsRepo.findById(id).orElseThrow(()-> new IdNotFoundException("cart item not found"));
 
         updated.setQuantity(updated.getQuantity()-quantity);
         if (updated.getQuantity()==0) {
 
-             cartItemsRepo.deleteById(id);
+             return deleteCartItem(id);
 
         }
         else {
 
-            cartItemsRepo.save(updated);
+            cartItems decreased = cartItemsRepo.save(updated);
+
+            if (decreased!=null) {
+                return "cart item decreased";
+            }
+            else {
+                return "cart not updated";
+            }
 
         }
 
@@ -133,5 +139,39 @@ public class cartServices {
         }
     }
 
+
+
+    public String deleteCartItem(Long id) {
+
+        cartItemsRepo.deleteById(id);
+        return "cart item is deleted";
+
+    }
+
+    @Transactional
+    public String deleteCartItem(String email,Long id) {
+
+        cartItems cart = cartItemsRepo.deleteByMailAndCartId(email,id);
+
+        if (cartItemsRepo.findById(cart.getId()).isPresent()) {
+            throw new cartAlreadyExistsException("cart still exists");
+        }
+        else {
+            return "cart item is deleted";
+        }
+    }
+
+    @Transactional
+    public String deleteCart(String email) {
+
+        cartItems cart = cartItemsRepo.deleteCartByMail(email);
+
+        if (customerCartRepo.findByEmail(email).isPresent()) {
+            throw new cartAlreadyExistsException("cart still exists");
+        }
+        else {
+            return "cart is deleted";
+        }
+    }
 }
 

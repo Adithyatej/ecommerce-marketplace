@@ -15,4 +15,12 @@ public interface cartItemsRepo extends JpaRepository<cartItems,Long> {
     @Modifying
     @Query(value = "UPDATE CART_ITEMS SET QUANTITY=?1 WHERE id=?2",nativeQuery = true)
     Integer updateQuantity(Integer quantity,Long id);
+
+    @Modifying
+    @Query(value = "DELETE CI FROM CART_ITEMS CI JOIN CUSTOMER_CART CC ON CI.CART_ID=CC.ID JOIN CUSTOMER C ON CC.CUSTOMER_ID=C.ID WHERE C.EMAIL=?1 AND CI.ID=?2",nativeQuery = true)
+    cartItems deleteByMailAndCartId(String email, Long id);
+
+    @Modifying
+    @Query(value = "DELETE CI FROM CART_ITEMS CI JOIN CUSTOMER_CART CC ON CI.CART_ID=CC.ID JOIN CUSTOMER C ON CC.CUSTOMER_ID=C.ID WHERE C.EMAIL=?1",nativeQuery = true)
+    cartItems deleteCartByMail(String email);
 }

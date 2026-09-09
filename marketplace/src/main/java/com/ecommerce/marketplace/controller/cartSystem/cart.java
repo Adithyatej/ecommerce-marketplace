@@ -33,4 +33,16 @@ public class cart {
         return ResponseEntity.ok(cartServices.viewCart(customer));
     }
 
+    @DeleteMapping("/{customer}")
+    public ResponseEntity<?> deleteCart(@PathVariable String customer) {
+
+        return ResponseEntity.ok(cartServices.deleteCart(customer));
+    }
+
+    @DeleteMapping("/{customer}/cart/{cartItem}")
+    public ResponseEntity<?> deleteCartItem(@PathVariable String customer,@PathVariable Long cartItem) {
+
+        return ResponseEntity.ok(cartServices.deleteCartItem(customer,cartItem));
+    }
+
 }

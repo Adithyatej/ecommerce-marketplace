@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Registration</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+<main class="container">
+    <section class="card">
+        <a class="back-link" href="/register.html">← Back</a>
+        <h1>User registration</h1>
+
+        <form id="user-register-form" data-endpoint="/api/auth/users/register">
+            <label>
+                Full name
+                <input name="name" type="text" required />
+            </label>
+
+            <label>
+                Email
+                <input name="email" type="email" required />
+            </label>
+
+            <label>
+                Password
+                <input name="password" type="password" minlength="8" required />
+            </label>
+
+            <button class="button" type="submit">Create user account</button>
+            <p class="message"></p>
+        </form>
+    </section>
+</main>
+
+<script src="/js/app.js"></script>
+</body>
+</html>

@@ -1,10 +1,9 @@
 package com.ecommerce.marketplace.service.seller;
 
-import com.ecommerce.marketplace.Mapping.customerMapper;
 import com.ecommerce.marketplace.Mapping.sellerMapper;
 import com.ecommerce.marketplace.Repository.sellerRepo;
 import com.ecommerce.marketplace.dto.seller.sellerRequestDTO;
-import com.ecommerce.marketplace.entities.seller.seller;
+import com.ecommerce.marketplace.entities.seller.Seller;
 import com.ecommerce.marketplace.exceptions.userAlreadyExistsException;
 import org.mapstruct.factory.Mappers;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -41,7 +40,7 @@ public class sellerAuthServices {
         System.out.println("after encoding password");
         System.out.println("before saving customer");
 
-        seller s = sellerRepo.save(sellerMapper.toEntity(sellerRequestDTO));
+        Seller s = sellerRepo.save(sellerMapper.toEntity(sellerRequestDTO));
 
 
         System.out.println(sellerRequestDTO.getEmail() +" "+ sellerRequestDTO.getPassword()+" "+sellerRequestDTO.getName()+" "+sellerRequestDTO.getStoreName()+" "+sellerRequestDTO.getStoreDescription()+" "+sellerRequestDTO.getPhoneNumber()+" "+sellerRequestDTO.getSellerAddress().getCity());

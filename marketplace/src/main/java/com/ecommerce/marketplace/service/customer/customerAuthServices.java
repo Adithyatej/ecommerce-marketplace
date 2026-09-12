@@ -4,7 +4,7 @@ package com.ecommerce.marketplace.service.customer;
 import com.ecommerce.marketplace.Mapping.customerMapper;
 import com.ecommerce.marketplace.Repository.customerRepo;
 import com.ecommerce.marketplace.dto.customer.customerRequestDTO;
-import com.ecommerce.marketplace.entities.customer.customer;
+import com.ecommerce.marketplace.entities.customer.Customer;
 import com.ecommerce.marketplace.exceptions.userAlreadyExistsException;
 import org.mapstruct.factory.Mappers;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -46,7 +46,7 @@ public class customerAuthServices implements UserDetailsService {
 
         System.out.println("after encoding password");
         System.out.println("before saving customer");
-        customer cus = customerMapper.dtoToEntity(customerRequestDto);
+        Customer cus = customerMapper.dtoToEntity(customerRequestDto);
         System.out.println("username: " +cus.getUsername()+" email: "+cus.getEmail()+" phone: "+cus.getPhoneNumber());
         customerRepo.save(cus);
         System.out.println();

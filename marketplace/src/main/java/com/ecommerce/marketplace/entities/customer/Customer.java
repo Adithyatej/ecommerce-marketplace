@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "customer")
-public class customer extends user {
+public class Customer extends user {
 
 
     @Id

@@ -19,8 +19,6 @@ public class customerRequestDTO {
     @Setter
     @Getter
     @NotBlank(message = "Password is mandatory")
-
-
     private String password;
     @Setter
     @Getter

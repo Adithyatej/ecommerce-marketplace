@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "sellers")
-public class seller extends user {
+public class Seller extends user {
 
 
     @Id

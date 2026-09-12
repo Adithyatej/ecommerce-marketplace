@@ -8,11 +8,10 @@ import com.ecommerce.marketplace.Repository.product.productListingRepo;
 import com.ecommerce.marketplace.dto.cartSystem.cartRequestDTO;
 import com.ecommerce.marketplace.entities.cart.cartItems;
 import com.ecommerce.marketplace.entities.cart.customerCart;
-import com.ecommerce.marketplace.entities.customer.customer;
+import com.ecommerce.marketplace.entities.customer.Customer;
 import com.ecommerce.marketplace.entities.product.productListings;
 import com.ecommerce.marketplace.exceptions.IdNotFoundException;
 import com.ecommerce.marketplace.exceptions.cartAlreadyExistsException;
-import com.ecommerce.marketplace.exceptions.cartNotFoundException;
 import com.ecommerce.marketplace.exceptions.productNotFoundException;
 import com.ecommerce.marketplace.projections.products.customerCartResponse;
 import jakarta.transaction.Transactional;
@@ -43,7 +42,7 @@ public class cartServices {
     public Object addProductToCart(cartRequestDTO cart) {
 
         cartItems added = null;
-        customer customerInformation = customerRepo.findByEmail(cart.getEmail());
+        Customer customerInformation = customerRepo.findByEmail(cart.getEmail());
 
 
         if (customerInformation == null) {

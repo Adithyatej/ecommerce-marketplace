@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Entity
 @Table(name = "order_items")
@@ -18,11 +20,11 @@ public class order_items {
     @Setter
     @ManyToOne
     @JoinColumn(name = "order_id",referencedColumnName = "id")
-    private orders orderId;
+    private Order order;
 
     @ManyToOne
     @JoinColumn(name = "productListing_id",referencedColumnName = "id")
-    private productListings productListingsId;
+    private productListings productListing;
 
     @Setter
     @Column(name = "order_quantity")
@@ -30,7 +32,7 @@ public class order_items {
 
     @Setter
     @Column(name = "unit price")
-    private Double unitPrice;
+    private BigDecimal unitPrice;
 
 
 

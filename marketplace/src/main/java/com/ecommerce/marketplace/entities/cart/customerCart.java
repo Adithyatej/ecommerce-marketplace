@@ -1,6 +1,6 @@
 package com.ecommerce.marketplace.entities.cart;
 
-import com.ecommerce.marketplace.entities.customer.customer;
+import com.ecommerce.marketplace.entities.customer.Customer;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +19,9 @@ public class customerCart {
     @Setter
     @OneToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    private customer customer;
+    private Customer customer;
+
+
 
     @Setter
     @OneToMany(mappedBy = "cart",orphanRemoval = true)

@@ -39,7 +39,7 @@ public class globalExceptionHandler {
         return ResponseEntity.status(404).body(ex.getMessage());
     }
 
-    @ExceptionHandler(cartNotFoundException.class)
+    @ExceptionHandler(cartAlreadyExistsException.class)
     public ResponseEntity<?> handleCartAlreadyExists(productNotFoundException ex) {
         return ResponseEntity.status(404).body(ex.getMessage());
     }

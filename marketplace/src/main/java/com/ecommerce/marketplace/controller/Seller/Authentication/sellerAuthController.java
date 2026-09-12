@@ -1,7 +1,6 @@
 package com.ecommerce.marketplace.controller.Seller.Authentication;
 
 import com.ecommerce.marketplace.dto.seller.sellerRequestDTO;
-import com.ecommerce.marketplace.entities.seller.seller;
 import com.ecommerce.marketplace.service.seller.sellerAuthServices;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;

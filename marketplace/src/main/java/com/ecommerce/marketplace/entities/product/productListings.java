@@ -1,7 +1,7 @@
 package com.ecommerce.marketplace.entities.product;
 
 
-import com.ecommerce.marketplace.entities.seller.seller;
+import com.ecommerce.marketplace.entities.seller.Seller;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,7 +25,7 @@ public class productListings {
     @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id",referencedColumnName ="id")
-    private seller seller;
+    private Seller seller;
 
     @Setter
     @Column(name = "price", nullable = false)

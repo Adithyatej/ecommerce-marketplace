@@ -5,13 +5,12 @@ import com.ecommerce.marketplace.Repository.product.productCategoriesRepo;
 import com.ecommerce.marketplace.Repository.product.productListingRepo;
 import com.ecommerce.marketplace.Repository.product.productRepo;
 import com.ecommerce.marketplace.Repository.sellerRepo;
-import com.ecommerce.marketplace.dto.product.categoryDTO;
 import com.ecommerce.marketplace.dto.product.productDTO;
 import com.ecommerce.marketplace.dto.product.productListingDTO;
 import com.ecommerce.marketplace.entities.product.productCategories;
 import com.ecommerce.marketplace.entities.product.productListings;
 import com.ecommerce.marketplace.entities.product.products;
-import com.ecommerce.marketplace.entities.seller.seller;
+import com.ecommerce.marketplace.entities.seller.Seller;
 import com.ecommerce.marketplace.exceptions.IdNotFoundException;
 import com.ecommerce.marketplace.exceptions.categoryNotFoundException;
 import com.ecommerce.marketplace.exceptions.productAlreadyExistsException;
@@ -25,7 +24,6 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class productServices {
@@ -132,7 +130,7 @@ public class productServices {
 
             products productData = productRepo.findProductWithProductNameAndBrand(product.getProductName(),product.getBrand());
             System.out.println(productData.getProductName()+"  "+ productData.getBrand());
-            seller seller = sellerRepo.findByEmail(product.getSeller());
+            Seller seller = sellerRepo.findByEmail(product.getSeller());
             System.out.println(seller.getUsername()+"  "+seller.getEmail());
 
 

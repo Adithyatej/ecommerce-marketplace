@@ -6,7 +6,7 @@ import com.ecommerce.marketplace.dto.product.productListingDTO;
 import com.ecommerce.marketplace.entities.product.productCategories;
 import com.ecommerce.marketplace.entities.product.productListings;
 import com.ecommerce.marketplace.entities.product.products;
-import com.ecommerce.marketplace.entities.seller.seller;
+import com.ecommerce.marketplace.entities.seller.Seller;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -23,5 +23,5 @@ public interface productMapper {
 
     @Mapping(source = "product",target = "product")
     @Mapping(source = "seller",target = "seller")
-    productListings toProductListEntity(productListingDTO productList, products product, seller seller);
+    productListings toProductListEntity(productListingDTO productList, products product, Seller seller);
 }

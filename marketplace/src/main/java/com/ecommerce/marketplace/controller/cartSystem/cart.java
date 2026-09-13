@@ -21,7 +21,7 @@ public class cart {
     @PostMapping("/item")
     public ResponseEntity<?> addToCart(@RequestBody cartRequestDTO cart) {
 
-        Object Added = cartServices.addProductToCart(cart);
+        cartItems Added = cartServices.addProductToCart(cart);
 
         if (Added==null) { return ResponseEntity.status(500).body("unable to handle the request");}
         else {return ResponseEntity.ok("added to cart");}

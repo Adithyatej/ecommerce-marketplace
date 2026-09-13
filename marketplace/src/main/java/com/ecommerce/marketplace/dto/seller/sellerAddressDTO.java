@@ -20,5 +20,5 @@ public class sellerAddressDTO {
 
     private String state;
 
-    private Long pinCode;
+    private String pinCode;
 }

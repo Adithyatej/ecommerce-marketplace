@@ -24,6 +24,6 @@ public class ShippingAddress {
     private String state;
 
     @Setter
-    private Long pincode;
+    private String pinCode;
 
 }

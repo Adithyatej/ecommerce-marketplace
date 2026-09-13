@@ -4,8 +4,15 @@ import com.ecommerce.marketplace.entities.seller.Seller;
 import com.ecommerce.marketplace.enums.SellerOrderStatus;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-@Table(name = "seller_orders")
+@Table(name = "seller_orders",
+uniqueConstraints = @UniqueConstraint(
+        name = "unique_seller_order",
+        columnNames = {"order_id","seller_id"}
+))
 public class sellerOrderBoard {
 
         @Id
@@ -23,5 +30,9 @@ public class sellerOrderBoard {
         @Enumerated(EnumType.STRING)
         @Column(nullable = false)
         private SellerOrderStatus status;
+
+
+        @OneToMany(mappedBy = "sellerOrder")
+        private List<orderItems> orderItem =new ArrayList<>();
     }
 

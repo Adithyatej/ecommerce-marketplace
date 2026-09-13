@@ -22,5 +22,5 @@ public class sellerAddress {
     @Column(name = "state",nullable = true)
     private String state;
     @Column(name = "pincode",nullable = true)
-    private Long pinCode;
+    private String pinCode;
 }

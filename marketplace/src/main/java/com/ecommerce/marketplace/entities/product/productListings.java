@@ -10,7 +10,10 @@ import java.math.BigDecimal;
 
 @Getter
 @Entity
-@Table(name = "product_listings")
+@Table(name = "product_listings",
+uniqueConstraints = @UniqueConstraint(name = "unique_product_listing",
+columnNames = {"product_id","seller_id"}))
+
 public class productListings {
 
     @Id

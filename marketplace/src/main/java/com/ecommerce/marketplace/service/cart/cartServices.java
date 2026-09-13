@@ -39,7 +39,7 @@ public class cartServices {
     }
 
     @Transactional
-    public Object addProductToCart(cartRequestDTO cart) {
+    public cartItems addProductToCart(cartRequestDTO cart) {
 
         cartItems added = null;
         Customer customerInformation = customerRepo.findByEmail(cart.getEmail());

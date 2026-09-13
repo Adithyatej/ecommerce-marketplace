@@ -1,12 +1,15 @@
 package com.ecommerce.marketplace.entities.customer;
 
 
+import com.ecommerce.marketplace.entities.orders.Order;
+import com.ecommerce.marketplace.entities.orders.sellerOrderBoard;
 import com.ecommerce.marketplace.entities.user;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,6 +31,9 @@ public class Customer extends user {
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> addresses;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orders;
 
 
 }

@@ -9,6 +9,8 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -20,12 +22,12 @@ public class Order {
     private long id;
 
     @Setter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "customer_id",referencedColumnName = "id")
-    private Customer customerId;
+    private Customer customer;
 
     @Setter
-    @Column(name = "total_amount")
+    @Column(name = "total_amount",scale = 2, precision = 12,nullable = false)
     private BigDecimal totalAmount;
 
     @Setter
@@ -40,6 +42,9 @@ public class Order {
     @Setter
     @Embedded
     private ShippingAddress shippingAddress;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<sellerOrderBoard> sellerOrders = new ArrayList<>();
 
 
 }

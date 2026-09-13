@@ -11,27 +11,27 @@ import java.math.BigDecimal;
 @Getter
 @Entity
 @Table(name = "order_items")
-public class order_items {
+public class orderItems {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Setter
-    @ManyToOne
-    @JoinColumn(name = "order_id",referencedColumnName = "id")
-    private Order order;
 
     @ManyToOne
     @JoinColumn(name = "productListing_id",referencedColumnName = "id")
     private productListings productListing;
+
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name="seller_order",referencedColumnName = "id",nullable = false)
+    private sellerOrderBoard sellerOrder;
 
     @Setter
     @Column(name = "order_quantity")
     private Integer quantity;
 
     @Setter
-    @Column(name = "unit price")
+    @Column(name = "unit_price",nullable = false,precision = 12,scale = 2)
     private BigDecimal unitPrice;
 
 

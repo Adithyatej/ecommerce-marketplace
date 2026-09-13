@@ -36,7 +36,7 @@ public class Address {
 
     @Setter
     @Column(name = "pincode", nullable = false)
-    private Long pincode;
+    private String pinCode;
 
     @Setter
     @ManyToOne

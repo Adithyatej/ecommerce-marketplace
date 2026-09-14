@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seller Registration</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+<main class="container">
+    <section class="card seller-card">
+        <a class="back-link" href="/register.html">← Back</a>
+        <h1>Seller registration</h1>
+        <p class="form-intro">Fields marked <span aria-hidden="true">*</span> are required.</p>
+
+        <form id="seller-register-form" data-endpoint="http://localhost:8080/api/seller-auth/register">
+            <div class="form-grid">
+                <label>
+                    Full name <span class="required" aria-label="required">*</span>
+                    <input name="name" type="text" autocomplete="name" required />
+                </label>
+
+                <label>
+                    Email <span class="required" aria-label="required">*</span>
+                    <input name="email" type="email" autocomplete="email" required />
+                </label>
+
+                <label>
+                    Password <span class="required" aria-label="required">*</span>
+                    <input name="password" type="password" autocomplete="new-password" required />
+                </label>
+
+                <label>
+                    Phone number <span class="required" aria-label="required">*</span>
+                    <input name="phoneNumber" type="tel" autocomplete="tel"
+                           pattern="\+?[0-9]{10,15}"
+                           title="Enter 10 to 15 digits, optionally starting with +"
+                           required />
+                </label>
+
+                <label>
+                    Store name <span class="required" aria-label="required">*</span>
+                    <input name="storeName" type="text" autocomplete="organization" required />
+                </label>
+
+            </div>
+
+            <button class="button" type="submit">Create seller account</button>
+            <p class="message" aria-live="polite"></p>
+        </form>
+    </section>
+</main>
+
+<script src="../js/app.js"></script>
+</body>
+</html>

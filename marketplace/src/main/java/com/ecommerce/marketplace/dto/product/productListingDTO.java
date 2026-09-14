@@ -1,6 +1,7 @@
 package com.ecommerce.marketplace.dto.product;
 
 
+import com.ecommerce.marketplace.enums.ProductListingStatus;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -29,7 +30,7 @@ public class productListingDTO {
     private Integer stockQuantity;
 
     @NotBlank(message = "status is mandatory")
-    private String status;
+    private ProductListingStatus status;
 
 
 }

@@ -1,6 +1,5 @@
 package com.ecommerce.marketplace.entities.orders;
 
-import com.ecommerce.marketplace.entities.customer.Address;
 import com.ecommerce.marketplace.entities.customer.Customer;
 import com.ecommerce.marketplace.enums.OrderStatus;
 import jakarta.persistence.*;
@@ -15,7 +14,7 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "orders_table")
-public class Order {
+public class Orders {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,7 +42,7 @@ public class Order {
     @Embedded
     private ShippingAddress shippingAddress;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<sellerOrderBoard> sellerOrders = new ArrayList<>();
 
 

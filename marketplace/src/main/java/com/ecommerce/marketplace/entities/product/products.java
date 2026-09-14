@@ -28,7 +28,7 @@ public class products {
     private String brand;
 
     @Setter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private productCategories productCategories;
 

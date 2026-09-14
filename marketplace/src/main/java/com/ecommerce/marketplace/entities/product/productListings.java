@@ -2,6 +2,7 @@ package com.ecommerce.marketplace.entities.product;
 
 
 import com.ecommerce.marketplace.entities.seller.Seller;
+import com.ecommerce.marketplace.enums.ProductListingStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,7 +41,8 @@ public class productListings {
 
     @Setter
     @Column(name = "status",nullable = false)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private ProductListingStatus status;
 
 
 }

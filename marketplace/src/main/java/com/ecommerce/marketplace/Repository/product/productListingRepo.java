@@ -1,6 +1,7 @@
 package com.ecommerce.marketplace.Repository.product;
 
 import com.ecommerce.marketplace.entities.product.productListings;
+import com.ecommerce.marketplace.enums.ProductListingStatus;
 import com.ecommerce.marketplace.projections.products.productListingResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -36,7 +37,7 @@ public interface productListingRepo extends JpaRepository<productListings,Long> 
 
     @Modifying
     @Query(value = "UPDATE PRODUCT_LISTINGS AS PL INNER JOIN PRODUCTS AS P ON PL.PRODUCT_ID=P.ID INNER JOIN SELLERS AS S ON PL.SELLER_ID=S.ID SET PL.STATUS=?4 WHERE S.EMAIL=?1 AND P.PRODUCT_NAME=?2 AND P.BRAND=?3",nativeQuery = true)
-    Integer updateStatusByProduct(String seller, String productName, String brand, String status);
+    Integer updateStatusByProduct(String seller, String productName, String brand, ProductListingStatus status);
 
     @Modifying
     @Query(value = "UPDATE PRODUCT_LISTINGS AS PL INNER JOIN PRODUCTS AS P ON PL.PRODUCT_ID=P.ID INNER JOIN SELLERS AS S ON PL.SELLER_ID=S.ID SET PL.STATUS= 'DEACTIVATED' WHERE S.EMAIL=?1 AND P.PRODUCT_NAME=?2 AND P.BRAND=?3",nativeQuery = true)

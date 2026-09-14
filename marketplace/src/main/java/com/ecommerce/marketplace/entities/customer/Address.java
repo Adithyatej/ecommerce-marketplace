@@ -39,7 +39,7 @@ public class Address {
     private String pinCode;
 
     @Setter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="customer_id",referencedColumnName = "id")
     private Customer customer;
 

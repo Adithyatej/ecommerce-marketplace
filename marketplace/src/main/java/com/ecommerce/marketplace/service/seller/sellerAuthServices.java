@@ -1,7 +1,7 @@
 package com.ecommerce.marketplace.service.seller;
 
 import com.ecommerce.marketplace.Mapping.sellerMapper;
-import com.ecommerce.marketplace.Repository.sellerRepo;
+import com.ecommerce.marketplace.Repository.seller.sellerRepo;
 import com.ecommerce.marketplace.dto.seller.sellerRequestDTO;
 import com.ecommerce.marketplace.entities.seller.Seller;
 import com.ecommerce.marketplace.exceptions.userAlreadyExistsException;

@@ -17,16 +17,15 @@ public class cartItems {
 
 
     @Setter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id",referencedColumnName = "id")
     private customerCart cart;
 
 
     @Setter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "listing_id",referencedColumnName = "id")
     private productListings productListings;
-
 
     @Setter
     @Column(name = "quantity")

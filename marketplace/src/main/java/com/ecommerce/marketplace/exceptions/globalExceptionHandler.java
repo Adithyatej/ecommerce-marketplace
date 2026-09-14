@@ -43,4 +43,14 @@ public class globalExceptionHandler {
     public ResponseEntity<?> handleCartAlreadyExists(productNotFoundException ex) {
         return ResponseEntity.status(404).body(ex.getMessage());
     }
+
+    @ExceptionHandler(AddressNotFoundException.class)
+    public ResponseEntity<?> handleAddressNotFound(AddressNotFoundException ex) {
+        return ResponseEntity.status(404).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(ProductOutOfStockException.class)
+    public ResponseEntity<?> handleProductOutOfStockException(ProductOutOfStockException ex) {
+        return ResponseEntity.status(400).body(ex.getMessage());
+    }
 }

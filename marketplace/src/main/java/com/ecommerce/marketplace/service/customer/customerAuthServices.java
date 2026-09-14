@@ -2,7 +2,7 @@ package com.ecommerce.marketplace.service.customer;
 
 
 import com.ecommerce.marketplace.Mapping.customerMapper;
-import com.ecommerce.marketplace.Repository.customerRepo;
+import com.ecommerce.marketplace.Repository.customer.customerRepo;
 import com.ecommerce.marketplace.dto.customer.customerRequestDTO;
 import com.ecommerce.marketplace.entities.customer.Customer;
 import com.ecommerce.marketplace.exceptions.userAlreadyExistsException;

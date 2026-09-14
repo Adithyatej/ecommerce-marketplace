@@ -1,8 +1,7 @@
 package com.ecommerce.marketplace.controller.OrderSystem;
 
 
-import com.ecommerce.marketplace.dto.cartSystem.cartRequestDTO;
-import com.ecommerce.marketplace.entities.orders.Order;
+import com.ecommerce.marketplace.dto.OrderSystem.OrderRequestDTO;
 import com.ecommerce.marketplace.service.order.OrderServices;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +20,10 @@ public class orders {
         this.orderServices=orderServices;
     }
     @PostMapping("/order")
-    public ResponseEntity<?> createOrder(@Valid @RequestBody cartRequestDTO cart) {
+    public ResponseEntity<?> createOrder(@Valid @RequestBody OrderRequestDTO cart) {
 
-        Object added = orderServices.makeOrder(cart);
-        if (added==null) { return ResponseEntity.status(500).body("unable to handle the request");}
+        Boolean added = orderServices.makeOrder(cart);
+        if (added==false) { return ResponseEntity.status(500).body("unable to handle the request");}
         else {return ResponseEntity.ok("order created");}
     }
 

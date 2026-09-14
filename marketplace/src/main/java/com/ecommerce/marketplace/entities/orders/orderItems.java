@@ -18,12 +18,14 @@ public class orderItems {
     private Long id;
 
 
-    @ManyToOne
+    @Setter
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "productListing_id",referencedColumnName = "id")
     private productListings productListing;
 
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
-    @JoinColumn(name="seller_order",referencedColumnName = "id",nullable = false)
+    @Setter
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "seller_order", referencedColumnName = "id", nullable = false)
     private sellerOrderBoard sellerOrder;
 
     @Setter

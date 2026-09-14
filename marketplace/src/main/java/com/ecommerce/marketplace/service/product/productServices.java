@@ -4,7 +4,7 @@ import com.ecommerce.marketplace.Mapping.productMapper;
 import com.ecommerce.marketplace.Repository.product.productCategoriesRepo;
 import com.ecommerce.marketplace.Repository.product.productListingRepo;
 import com.ecommerce.marketplace.Repository.product.productRepo;
-import com.ecommerce.marketplace.Repository.sellerRepo;
+import com.ecommerce.marketplace.Repository.seller.sellerRepo;
 import com.ecommerce.marketplace.dto.product.productDTO;
 import com.ecommerce.marketplace.dto.product.productListingDTO;
 import com.ecommerce.marketplace.entities.product.productCategories;

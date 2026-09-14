@@ -3,7 +3,7 @@ package com.ecommerce.marketplace.service.cart;
 import com.ecommerce.marketplace.Mapping.cartItemMapper;
 import com.ecommerce.marketplace.Repository.cart.cartItemsRepo;
 import com.ecommerce.marketplace.Repository.cart.customerCartRepo;
-import com.ecommerce.marketplace.Repository.customerRepo;
+import com.ecommerce.marketplace.Repository.customer.customerRepo;
 import com.ecommerce.marketplace.Repository.product.productListingRepo;
 import com.ecommerce.marketplace.dto.cartSystem.cartRequestDTO;
 import com.ecommerce.marketplace.entities.cart.cartItems;

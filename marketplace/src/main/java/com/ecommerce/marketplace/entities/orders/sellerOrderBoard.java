@@ -34,7 +34,7 @@ public class sellerOrderBoard {
 
         @Setter
         @Enumerated(EnumType.STRING)
-        @Column(nullable = false)
+        @Column(name = "status", nullable = false)
         private SellerOrderStatus status;
 
 

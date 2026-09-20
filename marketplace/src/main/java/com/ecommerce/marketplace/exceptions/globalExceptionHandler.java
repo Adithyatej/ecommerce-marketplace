@@ -53,4 +53,15 @@ public class globalExceptionHandler {
     public ResponseEntity<?> handleProductOutOfStockException(ProductOutOfStockException ex) {
         return ResponseEntity.status(400).body(ex.getMessage());
     }
+
+
+    @ExceptionHandler(OrderNotFoundException.class)
+    public ResponseEntity<?> handleOrderNotFoundException(OrderNotFoundException ex) {
+        return ResponseEntity.status(404).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(NocancellationPolicyException.class)
+    public ResponseEntity<?> handleNoCancellationPolicyException(NocancellationPolicyException ex) {
+        return ResponseEntity.status(400).body(ex.getMessage());
+    }
 }

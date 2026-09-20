@@ -2,6 +2,7 @@ package com.ecommerce.marketplace.entities.product;
 
 
 import com.ecommerce.marketplace.entities.seller.Seller;
+import com.ecommerce.marketplace.enums.ProductListingPolicy;
 import com.ecommerce.marketplace.enums.ProductListingStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -43,6 +44,11 @@ public class productListings {
     @Column(name = "status",nullable = false)
     @Enumerated(EnumType.STRING)
     private ProductListingStatus status;
+
+    @Setter
+    @Column(name="policy", nullable = false)
+    @Enumerated
+    public ProductListingPolicy policy;
 
 
 }

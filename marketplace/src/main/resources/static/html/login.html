@@ -3,20 +3,65 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
+    <title>Multi-Vendor Marketplace - Login</title>
     <link rel="stylesheet" href="../css/styles.css" />
 </head>
 <body>
-<main class="container">
-    <section class="card">
-        <a class="back-link" href="index.html">← Back</a>
-        <h1>Sign in</h1>
+    <header class="marketplace-header">
+        <a class="brand" href="index.html">
+            <div class="brand-icon">M</div>
+            <div>
+                <span class="brand-name">OmniMarket</span>
+                <span class="brand-badge">Sign In</span>
+            </div>
+        </a>
+        <nav class="nav-links">
+            <a class="nav-link" href="register.html">Need an account? Register</a>
+        </nav>
+    </header>
 
-        <div class="option-grid">
-            <a class="button" href="user-login.html">User Login</a>
-            <a class="button button-secondary" href="seller-login.html">Seller Login</a>
+    <main class="page-container">
+        <a class="back-link" href="index.html">← Back to Overview</a>
+
+        <div class="card">
+            <div class="card-header">
+                <h1>Sign In to OmniMarket</h1>
+                <p>Choose your portal role to access your personalized workspace.</p>
+            </div>
+
+            <!-- Login Options: User, Seller, Admin -->
+            <div class="role-grid">
+                <!-- Login as User -->
+                <a class="role-card" href="user-login.html">
+                    <div class="role-icon user">👤</div>
+                    <h2>Login as User</h2>
+                    <p>Access your customer orders, wishlist, shopping cart, and saved delivery addresses.</p>
+                    <span class="role-btn">User Sign In →</span>
+                </a>
+
+                <!-- Login as Seller -->
+                <a class="role-card" href="seller-login.html">
+                    <div class="role-icon seller">💼</div>
+                    <h2>Login as Seller</h2>
+                    <p>Manage product catalog, fulfill pending orders, monitor sales analytics, and payouts.</p>
+                    <span class="role-btn">Seller Portal →</span>
+                </a>
+
+                <!-- Login as Admin -->
+                <a class="role-card" href="admin-login.html">
+                    <div class="role-icon admin">🛡️</div>
+                    <h2>Login as Admin</h2>
+                    <p>Platform governance, verify new seller registrations, supervise categories, and monitor GMV.</p>
+                    <span class="role-btn">Admin Console →</span>
+                </a>
+            </div>
+
+            <div class="auth-footer">
+                <p>Don't have an account yet? <a href="register.html">Register as User or Seller</a></p>
+            </div>
         </div>
-    </section>
-</main>
+    </main>
+
+    <script src="../js/app.js"></script>
 </body>
 </html>

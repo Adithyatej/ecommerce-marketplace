@@ -33,5 +33,7 @@ public class Customer extends user {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Orders> orders;
 
+    @OneToMany(mappedBy = "customer",orphanRemoval = true)
+    private List<Securitytoken> securityToken;
 
 }

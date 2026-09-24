@@ -72,5 +72,6 @@ public class orders {
     @GetMapping("/seller/{email}/{status}")
     public ResponseEntity<?> viewSellerOrdersStatus(@PathVariable String email, @PathVariable String status) {
         List<sellerOrders> sellers = orderServices.getSellerOrdersByStatus(email,status);
+        return ResponseEntity.ok(sellers);
     }
 }

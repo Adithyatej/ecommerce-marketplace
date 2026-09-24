@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seller Management Hub - OmniMarket</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body data-dashboard-role="seller">
+    <header class="marketplace-header">
+        <a class="brand" href="seller-home.html">
+            <div class="brand-icon" style="background: linear-gradient(135deg, #059669, #34d399);">S</div>
+            <div>
+                <span class="brand-name">OmniMarket</span>
+                <span class="brand-badge" style="background: #ecfdf5; color: #059669;">Merchant Portal</span>
+            </div>
+        </a>
+
+        <div class="nav-links">
+            <div class="user-badge-pill">
+                <span>🏪 Store: <strong id="current-user-display">Merchant</strong></span>
+                <span class="jwt-badge" id="jwt-status-indicator">JWT ACTIVE</span>
+            </div>
+
+            <button class="btn btn-primary btn-sm" id="btn-add-product">
+                + Add Product
+            </button>
+
+            <button class="btn btn-danger btn-sm" id="logout-btn">
+                Logout
+            </button>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        <!-- Top Stats Row -->
+        <div class="dashboard-topbar">
+            <div class="dashboard-title-area">
+                <h1>Merchant Operations Dashboard</h1>
+                <p>Monitor your marketplace sales velocity, manage inventory, and fulfill customer shipments.</p>
+            </div>
+        </div>
+
+        <!-- Metric Stat Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon success">💰</div>
+                <div class="stat-info">
+                    <div class="stat-value">$28,450</div>
+                    <div class="stat-label">Total Store Revenue</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon primary">📦</div>
+                <div class="stat-info">
+                    <div class="stat-value">18</div>
+                    <div class="stat-label">Pending Orders to Ship</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon accent">🏷️</div>
+                <div class="stat-info">
+                    <div class="stat-value">34</div>
+                    <div class="stat-label">Active Catalog Items</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon dark">⭐</div>
+                <div class="stat-info">
+                    <div class="stat-value">4.9 / 5.0</div>
+                    <div class="stat-label">Merchant Customer Rating</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inventory Management Table -->
+        <div class="table-card">
+            <div class="table-header">
+                <h2>Product Inventory & Stock Management</h2>
+                <button class="btn btn-secondary btn-sm" onclick="App.showToast('Refreshing inventory data from server...')">
+                    ↻ Refresh
+                </button>
+            </div>
+            <div class="table-wrap">
+                <table id="seller-products-table">
+                    <thead>
+                        <tr>
+                            <th>Product Title</th>
+                            <th>Category</th>
+                            <th>Unit Price</th>
+                            <th>Stock Count</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Wireless Noise-Canceling Headphones</strong></td>
+                            <td>Electronics</td>
+                            <td>$129.99</td>
+                            <td>42 units</td>
+                            <td><span class="badge badge-success">In Stock</span></td>
+                            <td><button class="btn btn-secondary btn-sm" onclick="this.closest('tr').remove(); App.showToast('Product removed');">Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mechanical Gaming Keyboard RGB</strong></td>
+                            <td>Electronics</td>
+                            <td>$89.00</td>
+                            <td>12 units</td>
+                            <td><span class="badge badge-success">In Stock</span></td>
+                            <td><button class="btn btn-secondary btn-sm" onclick="this.closest('tr').remove(); App.showToast('Product removed');">Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong>USB-C Multi-Port Hub (8-in-1)</strong></td>
+                            <td>Accessories</td>
+                            <td>$34.50</td>
+                            <td>4 units</td>
+                            <td><span class="badge badge-warning">Low Stock</span></td>
+                            <td><button class="btn btn-secondary btn-sm" onclick="this.closest('tr').remove(); App.showToast('Product removed');">Delete</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Recent Store Orders Queue -->
+        <div class="table-card">
+            <div class="table-header">
+                <h2>Recent Customer Orders</h2>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Items</th>
+                            <th>Total Amount</th>
+                            <th>Order Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>#ORD-8921</code></td>
+                            <td>Alex Johnson</td>
+                            <td>1x Wireless Headphones</td>
+                            <td>$129.99</td>
+                            <td><span class="badge badge-warning">Awaiting Shipment</span></td>
+                            <td><button class="btn btn-primary btn-sm" onclick="App.showToast('Shipping label generated!');">Ship Item</button></td>
+                        </tr>
+                        <tr>
+                            <td><code>#ORD-8919</code></td>
+                            <td>Maria Garcia</td>
+                            <td>2x USB-C Multi-Port Hub</td>
+                            <td>$69.00</td>
+                            <td><span class="badge badge-success">Delivered</span></td>
+                            <td><button class="btn btn-secondary btn-sm" onclick="App.showToast('Viewing invoice');">Invoice</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/app.js"></script>
+</body>
+</html>
+

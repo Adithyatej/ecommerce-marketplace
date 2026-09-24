@@ -3,32 +3,60 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Seller Login</title>
+    <title>Seller Login - OmniMarket</title>
     <link rel="stylesheet" href="../css/styles.css" />
 </head>
 <body>
-<main class="container">
-    <section class="card">
-        <a class="back-link" href="login.html">← Back</a>
-        <h1>Seller login</h1>
+    <header class="marketplace-header">
+        <a class="brand" href="index.html">
+            <div class="brand-icon" style="background: linear-gradient(135deg, #059669, #34d399);">S</div>
+            <div>
+                <span class="brand-name">OmniMarket</span>
+                <span class="brand-badge" style="background: #ecfdf5; color: #059669;">Seller Hub</span>
+            </div>
+        </a>
+        <nav class="nav-links">
+            <a class="nav-link" href="login.html">All Login Roles</a>
+        </nav>
+    </header>
 
-        <form id="seller-login-form" data-endpoint="/api/auth/sellers/login">
-            <label>
-                Email
-                <input name="email" type="email" required />
-            </label>
+    <main class="auth-container">
+        <div class="card">
+            <a class="back-link" href="login.html">← Back to Role Selection</a>
+            
+            <div class="card-header" style="text-align: left; margin-bottom: 1.5rem;">
+                <h1>Merchant Login</h1>
+                <p>Sign into your seller dashboard to manage products, view sales, and process orders.</p>
+            </div>
 
-            <label>
-                Password
-                <input name="password" type="password" required />
-            </label>
+            <!-- Seller login form: sends application/x-www-form-urlencoded -->
+            <form id="seller-login-form" 
+                  data-login-role="seller" 
+                  data-endpoint="http://localhost:8080/api/seller-auth/login"
+                  data-redirect="seller-home.html">
+                
+                <div class="form-group">
+                    <label for="seller-email">Store or Business Email <span class="required">*</span></label>
+                    <input id="seller-email" name="email" type="email" placeholder="vendor@store.com" required autocomplete="email" />
+                </div>
 
-            <button class="button" type="submit">Login</button>
-            <p class="message"></p>
-        </form>
-    </section>
-</main>
+                <div class="form-group">
+                    <label for="seller-password">Password <span class="required">*</span></label>
+                    <input id="seller-password" name="password" type="password" placeholder="••••••••" required autocomplete="current-password" />
+                    <span class="input-hint">Requires JWT authentication</span>
+                </div>
 
-<script src="/js/app.js"></script>
+                <div class="message" aria-live="polite"></div>
+
+                <button class="btn btn-success btn-block" type="submit">Access Merchant Portal</button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Want to open a new storefront? <a href="seller-register.html">Register as Seller</a></p>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/app.js"></script>
 </body>
 </html>

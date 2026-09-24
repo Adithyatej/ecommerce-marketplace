@@ -28,6 +28,10 @@ springdoc:
   api-docs:
     path: /api-spec
 
+token:
+  refresh:
+    expiry-time: 7
+
 
 
 

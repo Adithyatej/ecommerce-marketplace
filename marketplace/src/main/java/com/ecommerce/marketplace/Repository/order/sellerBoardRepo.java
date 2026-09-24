@@ -24,5 +24,5 @@ public interface sellerBoardRepo extends JpaRepository<sellerOrderBoard,Long> {
 
 
     @Query(value = "SELECT * FROM SELLER_ORDERS AS SO JOIN SELLERS S ON SO.SELLER_ID=S.ID WHERE S.EMAIL=?1 AND SO.status=?2",nativeQuery = true)
-    Optional<Object> findSellerOrdersByMailAndStatus(String email, String status);
+    List<sellerOrders> findSellerOrdersByMailAndStatus(String email, String status);
 }

@@ -250,7 +250,12 @@ public class OrderServices {
     }
 
     public List<sellerOrders> getSellerOrdersByStatus(String email, String status) {
-        return sellerBoardRepo.findSellerOrdersByMailAndStatus(email).orElseThrow(()-> new OrderNotFoundException("seller orders are not found with status "+ status));
+        List<sellerOrders> sellers =  sellerBoardRepo.findSellerOrdersByMailAndStatus(email,status);
+
+        if (sellers==null || sellers.isEmpty()) {
+            throw new OrderNotFoundException("order cannot be found with status "+ status);
+        }
+        return sellers;
     }
 }
 

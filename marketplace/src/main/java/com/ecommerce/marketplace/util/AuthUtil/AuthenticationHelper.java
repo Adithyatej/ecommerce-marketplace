@@ -82,4 +82,14 @@ public class AuthenticationHelper {
     }
 
 
+    public Securitytoken revokeToken(String rawToken) {
+
+        Securitytoken securitytoken = refreshTokenRepo.findByToken(DigestUtils.sha256Hex(rawToken));
+
+        securitytoken.setRevoked(true);
+        return refreshTokenRepo.save(securitytoken);
+
+    }
+
+
 }

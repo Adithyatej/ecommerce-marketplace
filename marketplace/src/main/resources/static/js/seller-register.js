@@ -1,15 +1,19 @@
 /**
- * user-register.js
- * Handles the "Create Customer Account" form on user-register.html.
+ * seller-register.js
+ * Handles the "Open Your Seller Storefront" form on seller-register.html.
  *
- * Flow:
- *   1. e.preventDefault() — stop the browser's default full-page form submit.
- *   2. Read the form's fields into a plain object, send it to the backend as JSON.
- *   3. Success -> show a message, then redirect to login.html.
- *   4. Failure -> show the backend's error message in the .message div.
+ * Same flow as user-register.js, with one difference: sellerRequestDTO on
+ * the backend nests the address fields under a "sellerAddress" object, so
+ * we can't just do Object.fromEntries(formData) like the flat user form —
+ * the payload has to be built by hand to match that shape:
+ *
+ *   {
+ *     name, email, password, phoneNumber, storeName, storeDescription,
+ *     sellerAddress: { doorNumber, street, city, state, pinCode }
+ *   }
  */
 document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('user-register-form');
+  const form = document.getElementById('seller-register-form');
   if (!form) return;
 
   const messageEl = form.querySelector('.message');
@@ -19,11 +23,26 @@ document.addEventListener('DOMContentLoaded', () => {
   form.addEventListener('submit', async (event) => {
     event.preventDefault(); // must-have: stops the normal navigation/page reload
 
-    // FormData reads every named input in the form ({ name, email, password,
-    // phoneNumber }); Object.fromEntries turns that into a plain JS object
-    // so JSON.stringify can send it as a JSON body.
     const formData = new FormData(form);
-    const payload = Object.fromEntries(formData.entries());
+
+    // Built explicitly (rather than Object.fromEntries) so the address
+    // fields land inside their own "sellerAddress" object, matching
+    // sellerRequestDTO / sellerAddressDTO on the backend.
+    const payload = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      password: formData.get('password'),
+      phoneNumber: formData.get('phoneNumber'),
+      storeName: formData.get('storeName'),
+      storeDescription: formData.get('storeDescription'),
+      sellerAddress: {
+        doorNumber: formData.get('doorNumber'),
+        street: formData.get('street'),
+        city: formData.get('city'),
+        state: formData.get('state'),
+        pinCode: formData.get('pinCode'),
+      },
+    };
 
     submitBtn.disabled = true;
     submitBtn.textContent = 'Creating account…';
@@ -55,7 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function showMessage(type, text) {
-    // type is 'success' or 'error' — matches the .message.success / .message.error CSS
     messageEl.textContent = text;
     messageEl.className = `message visible ${type}`;
   }

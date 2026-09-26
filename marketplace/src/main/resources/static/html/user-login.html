@@ -7,56 +7,57 @@
     <link rel="stylesheet" href="../css/styles.css" />
 </head>
 <body>
-    <header class="marketplace-header">
-        <a class="brand" href="index.html">
-            <div class="brand-icon">M</div>
-            <div>
-                <span class="brand-name">OmniMarket</span>
-                <span class="brand-badge">User Portal</span>
-            </div>
-        </a>
-        <nav class="nav-links">
-            <a class="nav-link" href="login.html">All Login Roles</a>
-        </nav>
-    </header>
-
-    <main class="auth-container">
-        <div class="card">
-            <a class="back-link" href="login.html">← Back to Role Selection</a>
-            
-            <div class="card-header" style="text-align: left; margin-bottom: 1.5rem;">
-                <h1>Customer Login</h1>
-                <p>Enter your credentials to access your customer marketplace dashboard.</p>
-            </div>
-
-            <!-- Login form uses data-login-role="user" and sends application/x-www-form-urlencoded -->
-            <form id="user-login-form" 
-                  data-login-role="user" 
-                  data-endpoint="http://localhost:8080/api/customer-auth/login"
-                  data-redirect="user-home.html">
-                
-                <div class="form-group">
-                    <label for="email">Email Address <span class="required">*</span></label>
-                    <input id="email" name="email" type="email" placeholder="customer@example.com" required autocomplete="email" />
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Password <span class="required">*</span></label>
-                    <input id="password" name="password" type="password" placeholder="••••••••" required autocomplete="current-password" />
-                    <span class="input-hint">Requires JWT authentication</span>
-                </div>
-
-                <div class="message" aria-live="polite"></div>
-
-                <button class="btn btn-primary btn-block" type="submit">Sign In as Customer</button>
-            </form>
-
-            <div class="auth-footer">
-                <p>Don't have a user account? <a href="user-register.html">Register as User</a></p>
-            </div>
+<header class="marketplace-header">
+    <a class="brand" href="index.html">
+        <div class="brand-icon">M</div>
+        <div>
+            <span class="brand-name">OmniMarket</span>
+            <span class="brand-badge">User Portal</span>
         </div>
-    </main>
+    </a>
+    <nav class="nav-links">
+        <a class="nav-link" href="login.html">All Login Roles</a>
+    </nav>
+</header>
 
-    <script src="../js/app.js"></script>
+<main class="auth-container">
+    <div class="card">
+        <a class="back-link" href="login.html">← Back to Role Selection</a>
+
+        <div class="card-header" style="text-align: left; margin-bottom: 1.5rem;">
+            <h1>Customer Login</h1>
+            <p>Enter your credentials to access your customer marketplace dashboard.</p>
+        </div>
+
+        <!-- Login form uses data-login-role="user" and sends application/x-www-form-urlencoded -->
+        <form id="user-login-form"
+              data-login-role="user"
+              data-endpoint="http://localhost:8080/api/customer-auth/login"
+              data-redirect="user-home.html">
+
+            <div class="form-group">
+                <label for="email">Email Address <span class="required">*</span></label>
+                <input id="email" name="email" type="email" placeholder="customer@example.com" required autocomplete="email" />
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password <span class="required">*</span></label>
+                <input id="password" name="password" type="password" placeholder="••••••••" required autocomplete="current-password" />
+                <span class="input-hint">Requires JWT authentication</span>
+            </div>
+
+            <div class="message" aria-live="polite"></div>
+
+            <button class="btn btn-primary btn-block" type="submit">Sign In as Customer</button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Don't have a user account? <a href="user-register.html">Register as User</a></p>
+        </div>
+    </div>
+</main>
+
+<script src="../js/app.js"></script>
+<script src="../js/user-login.js"></script>
 </body>
 </html>

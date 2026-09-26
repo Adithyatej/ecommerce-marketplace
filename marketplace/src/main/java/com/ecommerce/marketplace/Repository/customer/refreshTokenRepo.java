@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface refreshTokenRepo extends JpaRepository<Securitytoken,Long> {
 
-    @Query(value = "SELECT * FROM SECURITY_TOKENS WHERE TOKEN=?1")
+    @Query(value = "SELECT * FROM SECURITY_TOKENS WHERE TOKEN=?1",nativeQuery = true)
     Securitytoken findByToken(String token);
 }

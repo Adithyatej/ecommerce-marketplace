@@ -534,6 +534,31 @@ input:focus, select:focus, textarea:focus {
   color: var(--slate-400);
 }
 
+/* Section divider used to group related fields within a longer form,
+   e.g. the mandatory Business Address block on seller-register.html */
+.form-section-title {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--slate-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--slate-200);
+  margin-top: 0.25rem;
+}
+
+.form-section-subtitle {
+  font-size: 0.775rem;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--slate-400);
+}
+
 .message {
   padding: 0.8rem 1rem;
   border-radius: var(--radius-md);

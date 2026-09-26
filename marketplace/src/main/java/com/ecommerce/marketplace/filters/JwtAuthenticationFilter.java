@@ -1,5 +1,6 @@
 package com.ecommerce.marketplace.filters;
 
+import com.ecommerce.marketplace.service.TokenBlockListService;
 import com.ecommerce.marketplace.service.jwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -19,11 +20,11 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final jwtService jwtService;
-    private final UserDetailsService userDetailsService;
 
-    public JwtAuthenticationFilter(jwtService jwtService,UserDetailsService userDetailsService){
+
+    public JwtAuthenticationFilter(jwtService jwtService){
         this.jwtService=jwtService;
-        this.userDetailsService =userDetailsService;
+
     }
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -39,8 +40,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (jwtService.isTokenValid(jwt)) {
 
-            String username = jwtService.extractUsername(jwt);
 
+            String username = jwtService.extractUsername(jwt);
+            logger.info("the usename is:");
+            logger.info(username);
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(username, null, null);
 
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);

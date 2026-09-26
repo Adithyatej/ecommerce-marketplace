@@ -23,6 +23,12 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-webmvc")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation ("commons-codec:commons-codec")
+
+    // Spring Data Redis starter (includes Lettuce driver by default)
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+
+    // Optional: Connection pooling support (recommended if configuring connection pools)
+    implementation("org.apache.commons:commons-pool2")
     implementation("org.mapstruct:mapstruct:1.6.3")
     implementation("org.mapstruct.extensions.spring:mapstruct-spring-annotations:0.1.2")
     // MapStruct Processor via kapt (Kotlin Annotation Processing Tool)

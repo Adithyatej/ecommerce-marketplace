@@ -14,13 +14,12 @@ import java.util.function.Function;
 @Component
 public class jwtService {
 
-    private final UserDetailsService userDetailsService;
-
     private final JWTUtil jwtUtil;
+    private final TokenBlockListService tokenBlockListService;
 
-    public jwtService(UserDetailsService userDetailsService,JWTUtil jwtUtil) {
+    public jwtService(JWTUtil jwtUtil,TokenBlockListService tokenBlockListService) {
         this.jwtUtil=jwtUtil;
-        this.userDetailsService=userDetailsService;
+        this.tokenBlockListService=tokenBlockListService;
     }
 
 
@@ -48,6 +47,11 @@ public class jwtService {
 
     }
 
+    public String extractJtiId(String token) {
+        String jtiId = extractClaim(token, Claims::getId);
+        return jtiId;
+    }
+
     public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
@@ -59,11 +63,16 @@ public class jwtService {
 
 
     public boolean isTokenValid(String token) {
-        if (extractUsername(token)!=null && !isTokenExpired(token)) {
+        if (extractUsername(token)!=null && !isTokenExpired(token) && !tokenBlockListService.isBlocked(extractJtiId(token))) {
             return true;
         }
         else {
             return false;
         }
+    }
+
+    public void BlackList(String accessToken) {
+
+        tokenBlockListService.block(extractJtiId(accessToken), extractExpiration(accessToken).getTime());
     }
 }

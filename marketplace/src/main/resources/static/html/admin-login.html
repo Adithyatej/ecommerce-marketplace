@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login - OmniMarket</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+    <header class="marketplace-header">
+        <a class="brand" href="index.html">
+            <div class="brand-icon" style="background: linear-gradient(135deg, #db2777, #f43f5e);">A</div>
+            <div>
+                <span class="brand-name">OmniMarket</span>
+                <span class="brand-badge" style="background: #fdf2f8; color: #db2777;">Admin Control</span>
+            </div>
+        </a>
+        <nav class="nav-links">
+            <a class="nav-link" href="login.html">All Login Roles</a>
+        </nav>
+    </header>
+
+    <main class="auth-container">
+        <div class="card">
+            <a class="back-link" href="login.html">← Back to Role Selection</a>
+            
+            <div class="card-header" style="text-align: left; margin-bottom: 1.5rem;">
+                <h1>Administrator Console</h1>
+                <p>Authenticate with pre-existing database credentials to govern platform operations.</p>
+            </div>
+
+            <!-- Admin login form: sends application/x-www-form-urlencoded -->
+            <form id="admin-login-form" 
+                  data-login-role="admin" 
+                  data-endpoint="http://localhost:8080/api/admin-auth/login"
+                  data-redirect="admin-home.html">
+                
+                <div class="form-group">
+                    <label for="admin-username">Admin Username or Email <span class="required">*</span></label>
+                    <input id="admin-username" name="username" type="text" placeholder="admin@omnimarket.com" required autocomplete="username" />
+                </div>
+
+                <div class="form-group">
+                    <label for="admin-password">Master Password <span class="required">*</span></label>
+                    <input id="admin-password" name="password" type="password" placeholder="••••••••" required autocomplete="current-password" />
+                    <span class="input-hint">Requires JWT authentication for administrative privileges</span>
+                </div>
+
+                <div class="message" aria-live="polite"></div>
+
+                <button class="btn btn-primary btn-block" style="background: #0f172a;" type="submit">Access Admin Console</button>
+            </form>
+
+            <div class="auth-footer">
+                <p style="font-size: 0.8rem; color: #94a3b8;">
+                    🔒 Note: Administrator accounts are provisioned via system database seed. Self-registration is disabled for security.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/app.js"></script>
+</body>
+</html>
+

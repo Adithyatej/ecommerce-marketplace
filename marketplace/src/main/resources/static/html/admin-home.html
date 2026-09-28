@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administrator Governance - OmniMarket</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body data-dashboard-role="admin">
+    <header class="marketplace-header">
+        <a class="brand" href="admin-home.html">
+            <div class="brand-icon" style="background: linear-gradient(135deg, #db2777, #f43f5e);">A</div>
+            <div>
+                <span class="brand-name">OmniMarket</span>
+                <span class="brand-badge" style="background: #fdf2f8; color: #db2777;">Platform Admin</span>
+            </div>
+        </a>
+
+        <div class="nav-links">
+            <div class="user-badge-pill">
+                <span>🛡️ Role: <strong id="current-user-display">SuperAdmin</strong></span>
+                <span class="jwt-badge" id="jwt-status-indicator">JWT ACTIVE</span>
+            </div>
+
+            <button class="btn btn-secondary btn-sm" onclick="App.showToast('System health: 100% Operational');">
+                ⚡ Health Check
+            </button>
+
+            <button class="btn btn-danger btn-sm" id="logout-btn">
+                Logout
+            </button>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        <!-- Top Stats Row -->
+        <div class="dashboard-topbar">
+            <div class="dashboard-title-area">
+                <h1>Marketplace Administration & Control</h1>
+                <p>Platform governance, merchant auditing, commission monitoring, and ecosystem oversight.</p>
+            </div>
+        </div>
+
+        <!-- Global Platform Stat Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon primary">📈</div>
+                <div class="stat-info">
+                    <div class="stat-value">$342,800</div>
+                    <div class="stat-label">Gross Merchandise Value (GMV)</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon success">💵</div>
+                <div class="stat-info">
+                    <div class="stat-value">$34,280</div>
+                    <div class="stat-label">Platform 10% Fee Revenue</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon accent">🏪</div>
+                <div class="stat-info">
+                    <div class="stat-value">128</div>
+                    <div class="stat-label">Verified Active Merchants</div>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon dark">👥</div>
+                <div class="stat-info">
+                    <div class="stat-value">14,250</div>
+                    <div class="stat-label">Registered Consumers</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending Vendor Approvals Table -->
+        <div class="table-card">
+            <div class="table-header">
+                <h2>Merchant Onboarding Applications (Pending Review)</h2>
+                <span class="badge badge-warning">Action Required</span>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Storefront Name</th>
+                            <th>Contact Person</th>
+                            <th>Business Email</th>
+                            <th>Registration Date</th>
+                            <th>Status</th>
+                            <th>Governance Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Apex Outdoor Gear</strong></td>
+                            <td>Mark Sterling</td>
+                            <td>contact@apexoutdoor.com</td>
+                            <td>Today, 14:20</td>
+                            <td><span class="badge badge-warning">Pending Review</span></td>
+                            <td>
+                                <button class="btn btn-success btn-sm btn-approve-seller">Approve</button>
+                                <button class="btn btn-danger btn-sm btn-reject-seller">Reject</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Artisan Silk Studio</strong></td>
+                            <td>Elena Rostova</td>
+                            <td>elena@artisansilk.com</td>
+                            <td>Yesterday</td>
+                            <td><span class="badge badge-warning">Pending Review</span></td>
+                            <td>
+                                <button class="btn btn-success btn-sm btn-approve-seller">Approve</button>
+                                <button class="btn btn-danger btn-sm btn-reject-seller">Reject</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>NextGen Tech Emporium</strong></td>
+                            <td>David Kim</td>
+                            <td>d.kim@nextgentech.io</td>
+                            <td>3 days ago</td>
+                            <td><span class="badge badge-success">Verified</span></td>
+                            <td>
+                                <button class="btn btn-secondary btn-sm" disabled>Approved</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- System Activity & Configuration -->
+        <div class="table-card">
+            <div class="table-header">
+                <h2>Platform Governance Settings</h2>
+            </div>
+            <div style="padding: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                <button class="btn btn-secondary btn-sm" onclick="App.showToast('Default commission set to 10%');">
+                    Adjust Commission Rate
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="App.showToast('Cache purged successfully');">
+                    Flush Platform Cache
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="App.showToast('Audit report exported to CSV');">
+                    Export Financial Audit Log
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/app.js"></script>
+</body>
+</html>
+

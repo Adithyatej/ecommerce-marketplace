@@ -76,7 +76,7 @@ public class customerAuthServices implements UserDetailsService {
         else {
             securitytoken.setCustomer(customer);
             securitytoken.setHashToken(DigestUtils.sha256Hex(token));
-            securitytoken.setExpiresAt(LocalDateTime.now().plusMinutes(15));
+            securitytoken.setExpiresAt(LocalDateTime.now().plusMinutes(30));
             securitytoken.setRevoked(true);
 
             return refreshTokenRepo.save(securitytoken);

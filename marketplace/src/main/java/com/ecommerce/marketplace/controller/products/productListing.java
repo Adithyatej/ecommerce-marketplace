@@ -85,4 +85,16 @@ public class productListing {
         return ResponseEntity.ok(productService.viewAllProducts());
     }
 
+
+    @GetMapping("/view/products")
+    public ResponseEntity<?> viewProducts(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "12") Integer size, @RequestParam(defaultValue = "id") String sort) {
+
+        return ResponseEntity.ok(productService.viewProducts(page,size));
+    }
+
+    @GetMapping("/view/products/{category}")
+    public ResponseEntity<?> viewProductsByCategory(@PathVariable String category, @RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "12") Integer size, @RequestParam(defaultValue = "id") String sort) {
+
+        return ResponseEntity.ok(productService.viewProductsByCategory(category, page,size));
+    }
 }

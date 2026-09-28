@@ -15,12 +15,16 @@ import com.ecommerce.marketplace.exceptions.IdNotFoundException;
 import com.ecommerce.marketplace.exceptions.categoryNotFoundException;
 import com.ecommerce.marketplace.exceptions.productAlreadyExistsException;
 import com.ecommerce.marketplace.exceptions.productNotFoundException;
+import com.ecommerce.marketplace.projections.products.ProductByCategory;
 import com.ecommerce.marketplace.projections.products.productListingResponse;
 import com.ecommerce.marketplace.projections.products.productResponse;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.jspecify.annotations.Nullable;
 import org.mapstruct.factory.Mappers;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -245,4 +249,33 @@ public class productServices {
     }
 
 
+    public @Nullable Object viewProducts(Integer page, Integer size) {
+
+            Pageable pageable = PageRequest.of(page,size);
+
+            List<ProductByCategory> productList = productListingRepo.viewAllProducts(pageable);
+
+            if (productList==null) {
+                throw new productNotFoundException("products do not exist");
+            }
+
+            else {
+                return productList;
+            }
+    }
+
+    public @Nullable Object viewProductsByCategory(String category, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page,size);
+
+        System.out.println("category is "+ category);
+        List<ProductByCategory> productList = productListingRepo.viewAllProductsByCategory(category.toLowerCase(), pageable);
+
+        if (productList==null) {
+            throw new productNotFoundException("products do not exist");
+        }
+
+        else {
+            return productList;
+        }
+    }
 }

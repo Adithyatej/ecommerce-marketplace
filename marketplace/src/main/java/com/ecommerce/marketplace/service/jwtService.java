@@ -8,6 +8,8 @@ import lombok.Getter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Date;
 import java.util.function.Function;
 
@@ -73,6 +75,10 @@ public class jwtService {
 
     public void BlackList(String accessToken) {
 
-        tokenBlockListService.block(extractJtiId(accessToken), extractExpiration(accessToken).getTime());
+        long remainingTtlSeconds = Duration.between(
+                Instant.now(),
+                extractExpiration(accessToken).toInstant()
+        ).getSeconds();
+        tokenBlockListService.block(extractJtiId(accessToken), remainingTtlSeconds);
     }
 }

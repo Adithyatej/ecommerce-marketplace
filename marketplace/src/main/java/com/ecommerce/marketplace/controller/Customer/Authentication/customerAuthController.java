@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 @Slf4j
@@ -57,6 +59,7 @@ public class customerAuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequestDTO loginRequest) {
 
+        Map<String,String> SuccessfulLoginBody = new HashMap<>();
         System.out.println("login request entering");
         try {
             Authentication authentication = authenticationManager.authenticate(
@@ -73,6 +76,8 @@ public class customerAuthController {
                 log.info("authentication principal,{}", ((UserDetails) authentication.getPrincipal()).getUsername());
                 String[] tokens = authenticationHelper.generateOpaqueRefreshToken(loginRequest.getUsername());
                 log.info("refresh Token,{}", tokens[0]);
+                SuccessfulLoginBody.put("user",((UserDetails) authentication.getPrincipal()).getUsername());
+                SuccessfulLoginBody.put("Access_Token",tokens[1]);
                 ResponseCookie cookie = ResponseCookie.from("refreshToken", tokens[0])
                         .httpOnly(true)
                         .secure(false)
@@ -80,7 +85,7 @@ public class customerAuthController {
                         .path("api/auth/refresh")
                         .maxAge(Duration.ofMinutes(20))
                         .build();
-                return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, String.valueOf(cookie)).body(tokens[1]);
+                return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, String.valueOf(cookie)).body(SuccessfulLoginBody);
 
             }
         } catch (AuthenticationException exception) {

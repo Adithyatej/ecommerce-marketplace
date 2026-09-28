@@ -2,7 +2,9 @@ package com.ecommerce.marketplace.Repository.product;
 
 import com.ecommerce.marketplace.entities.product.productListings;
 import com.ecommerce.marketplace.enums.ProductListingStatus;
+import com.ecommerce.marketplace.projections.products.ProductByCategory;
 import com.ecommerce.marketplace.projections.products.productListingResponse;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -49,5 +51,20 @@ public interface productListingRepo extends JpaRepository<productListings,Long> 
 
     @Query(value = "SELECT * FROM PRODUCT_LISTINGS WHERE ID=?1 AND STATUS NOT IN ('OUT OF STOCK','DEACTIVATED')",nativeQuery = true)
     Optional<productListings> findByIdAndStatus(Long listingId);
+
+
+    @Query(value = """
+            SELECT PL.ID AS id, PL.PRICE AS price, P.PRODUCT_NAME AS productName, P.PRODUCT_DESCRIPTION AS productDescription, P.BRAND AS brand, CT.MAIN_CATEGORY_NAME AS mainProductCategory, CT.SUB_CATEGORY_NAME AS subProductCategory FROM PRODUCT_LISTINGS PL JOIN PRODUCTS P ON PL.PRODUCT_ID= P.ID JOIN\s
+            (SELECT PC0.CATEGORY_NAME AS MAIN_CATEGORY_NAME,PC1.CATEGORY_NAME AS PARENT_CATEGORY_NAME, PC2.CATEGORY_NAME AS SUB_CATEGORY_NAME,PC2.ID AS ID FROM PRODUCT_CATEGORIES PC0 JOIN PRODUCT_CATEGORIES PC1 ON PC1.PARENT_CATEGORY_ID=PC0.ID JOIN PRODUCT_CATEGORIES PC2 ON PC2.PARENT_CATEGORY_ID=PC1.ID WHERE PC0.PARENT_CATEGORY_ID IS NULL) AS CT
+            ON CT.ID= P.CATEGORY_ID;""",nativeQuery = true)
+    List<ProductByCategory> viewAllProducts(Pageable pageable);
+
+
+
+    @Query(value = """
+            SELECT PL.ID AS id, PL.PRICE AS price, P.PRODUCT_NAME AS productName, P.PRODUCT_DESCRIPTION AS productDescription, P.BRAND AS brand, CT.MAIN_CATEGORY_NAME AS mainProductCategory, CT.SUB_CATEGORY_NAME AS subProductCategory FROM PRODUCT_LISTINGS PL JOIN PRODUCTS P ON PL.PRODUCT_ID= P.ID JOIN\s
+            (SELECT PC0.CATEGORY_NAME AS MAIN_CATEGORY_NAME,PC1.CATEGORY_NAME AS PARENT_CATEGORY_NAME, PC2.CATEGORY_NAME AS SUB_CATEGORY_NAME,PC2.ID AS ID FROM PRODUCT_CATEGORIES PC0 JOIN PRODUCT_CATEGORIES PC1 ON PC1.PARENT_CATEGORY_ID=PC0.ID JOIN PRODUCT_CATEGORIES PC2 ON PC2.PARENT_CATEGORY_ID=PC1.ID WHERE PC0.PARENT_CATEGORY_ID IS NULL) AS CT
+            ON CT.ID= P.CATEGORY_ID WHERE CT.MAIN_CATEGORY_NAME=?1;""",nativeQuery = true)
+    List<ProductByCategory> viewAllProductsByCategory(String category, Pageable pageable);
 }
 

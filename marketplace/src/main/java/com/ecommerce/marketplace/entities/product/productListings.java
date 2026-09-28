@@ -46,8 +46,8 @@ public class productListings {
     private ProductListingStatus status;
 
     @Setter
-    @Column(name="policy", nullable = false)
-    @Enumerated
+    @Column(name = "policy", nullable = false)
+    @Enumerated(EnumType.STRING)
     public ProductListingPolicy policy;
 
 

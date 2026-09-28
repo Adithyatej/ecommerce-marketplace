@@ -7,20 +7,24 @@
  *     loads and browser restarts, until cleared).
  *   - The opaque refresh token lives in an httpOnly cookie set by the backend
  *     on login — JS never reads or writes it directly.
+ *   - Alongside the token we store the "auth base" — the login endpoint with
+ *     "/login" stripped off, e.g. "http://localhost:8080/api/customer-auth".
+ *     /refresh and /logout are derived from it, so this works the same way
+ *     for customer, seller, or admin logins without hardcoding any one URL.
  *   - App.authFetch(url, options) attaches the stored token to a request; if
  *     the backend responds 401 (token expired/invalid), it automatically
- *     calls the matching refresh endpoint (sending the httpOnly cookie via
+ *     calls "<authBase>/refresh" (sending the httpOnly cookie via
  *     credentials: 'include'), stores the new token, and retries the
  *     original request once.
- *   - The refresh endpoint is derived from whichever login endpoint the
- *     token came from (".../login" -> ".../refresh") and stored alongside
- *     the token, so this works the same way for customer, seller, or admin
- *     logins without hardcoding one URL here.
  *
  * Also provides:
+ *   - App.saveUser(user) / App.getUser() — the username the login endpoint
+ *     returns alongside the token, for displaying who's signed in.
  *   - App.showToast(...) — used by the onclick="" handlers already in the templates.
  *   - Dashboard route guard: <body data-dashboard-role="..."> redirects to
- *     that role's login page if there's no token, and wires up #logout-btn.
+ *     that role's login page if there's no token, fills in
+ *     #current-user-display, and wires up #logout-btn to actually call
+ *     "<authBase>/logout" before clearing local state.
  *
  * Login and register forms are each handled by their own dedicated script
  * (user-login.js, user-register.js, seller-register.js, ...) since every
@@ -29,7 +33,8 @@
 
 const CONFIG = {
   TOKEN_KEY: 'omnimarket_token',
-  REFRESH_ENDPOINT_KEY: 'omnimarket_refresh_endpoint',
+  AUTH_BASE_KEY: 'omnimarket_auth_base',
+  USER_KEY: 'omnimarket_user',
 };
 
 const App = {
@@ -62,21 +67,28 @@ const App = {
   },
 
   // ---------------------------------------------------------------------
-  // Token storage (localStorage)
+  // Token + user storage (localStorage)
   // ---------------------------------------------------------------------
-  saveToken(token, refreshEndpoint) {
+  saveToken(token, authBase) {
     localStorage.setItem(CONFIG.TOKEN_KEY, token);
-    if (refreshEndpoint) localStorage.setItem(CONFIG.REFRESH_ENDPOINT_KEY, refreshEndpoint);
+    if (authBase) localStorage.setItem(CONFIG.AUTH_BASE_KEY, authBase);
+  },
+  saveUser(user) {
+    localStorage.setItem(CONFIG.USER_KEY, user);
   },
   getToken() {
     return localStorage.getItem(CONFIG.TOKEN_KEY);
   },
-  getRefreshEndpoint() {
-    return localStorage.getItem(CONFIG.REFRESH_ENDPOINT_KEY);
+  getAuthBase() {
+    return localStorage.getItem(CONFIG.AUTH_BASE_KEY);
+  },
+  getUser() {
+    return localStorage.getItem(CONFIG.USER_KEY);
   },
   clearToken() {
     localStorage.removeItem(CONFIG.TOKEN_KEY);
-    localStorage.removeItem(CONFIG.REFRESH_ENDPOINT_KEY);
+    localStorage.removeItem(CONFIG.AUTH_BASE_KEY);
+    localStorage.removeItem(CONFIG.USER_KEY);
   },
 
   // ---------------------------------------------------------------------
@@ -91,13 +103,13 @@ const App = {
     let res = await fetch(url, withAuthHeader(App.getToken()));
 
     if (res.status === 401) {
-      const refreshEndpoint = App.getRefreshEndpoint();
-      if (!refreshEndpoint) {
+      const authBase = App.getAuthBase();
+      if (!authBase) {
         App.clearToken();
-        return res; // no known refresh endpoint — caller should treat this as logged out
+        return res; // no known auth base — caller should treat this as logged out
       }
 
-      const refreshRes = await fetch(refreshEndpoint, {
+      const refreshRes = await fetch(`${authBase}/refresh`, {
         method: 'POST',
         credentials: 'include', // sends the httpOnly refresh-token cookie
       });
@@ -108,7 +120,7 @@ const App = {
       }
 
       const newToken = await refreshRes.text(); // the auth controllers return plain text
-      App.saveToken(newToken, refreshEndpoint);
+      App.saveToken(newToken, authBase);
       res = await fetch(url, withAuthHeader(newToken)); // retry once with the fresh token
     }
 
@@ -126,7 +138,28 @@ const App = {
     return true;
   },
 
-  logout(redirectTo) {
+  // ---------------------------------------------------------------------
+  // Logout: revoke server-side, then clear local state either way
+  // ---------------------------------------------------------------------
+  async logout(redirectTo) {
+    const token = App.getToken();
+    const authBase = App.getAuthBase();
+
+    if (token && authBase) {
+      try {
+        // customerAuthController's logout takes accessToken as a plain,
+        // unannotated String parameter, which Spring MVC resolves as a
+        // request/query parameter by default — the refreshToken cookie
+        // rides along automatically via credentials: 'include'.
+        await fetch(`${authBase}/logout?accessToken=${encodeURIComponent(token)}`, {
+          method: 'POST',
+          credentials: 'include',
+        });
+      } catch (err) {
+        // Network hiccup — still log the person out locally below.
+      }
+    }
+
     App.clearToken();
     window.location.href = redirectTo;
   },
@@ -141,14 +174,18 @@ function wireDashboard() {
 
   if (!App.requireAuth(role)) return; // redirects to the right login page if not signed in
 
+  const nameEl = document.getElementById('current-user-display');
+  if (nameEl && App.getUser()) nameEl.textContent = App.getUser();
+
   const logoutBtn = document.getElementById('logout-btn');
   if (logoutBtn) {
     logoutBtn.addEventListener('click', () => App.logout(`${role}-login.html`));
   }
-  // Populating #current-user-display with the person's name isn't wired up
-  // yet — we'll add that when we build the dashboard pages themselves.
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   wireDashboard();
 });
+
+
+

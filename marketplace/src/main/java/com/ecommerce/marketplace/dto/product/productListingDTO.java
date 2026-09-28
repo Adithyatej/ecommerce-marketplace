@@ -1,9 +1,11 @@
 package com.ecommerce.marketplace.dto.product;
 
 
+import com.ecommerce.marketplace.enums.ProductListingPolicy;
 import com.ecommerce.marketplace.enums.ProductListingStatus;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,8 +31,12 @@ public class productListingDTO {
     @Min(value = 1,message = "stock quantity is mandatory")
     private Integer stockQuantity;
 
-    @NotBlank(message = "status is mandatory")
+    @NotNull(message = "status is mandatory")
     private ProductListingStatus status;
+
+    @NotNull(message = "policy is mandatory")
+    public ProductListingPolicy policy;
+
 
 
 }
